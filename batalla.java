@@ -1,97 +1,105 @@
 import java.util.Scanner;
-
 public class batalla {
-    public static void main(String[] args) {
-        //juego de batalla naval con matrices
-        //le preguntamos al usuario el tamaño de la matriz
-        System.out.println("Ingrese el tamaño de la matriz");
+// jose antonio aguilar vega, rafael eduardo mendoza acuña
+    public static double aciertos1=0;
+    public static double aciertos2=0;
+    public static double barcos=0;
+    
+    public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
+     
+        System.out.println("Ingrese el tamaño de la matriz");
         int tamaño = sc.nextInt();
-        //preguntamos al usuario el numero de barcos
-        System.out.println("Ingrese el numero de barcos");
-        int barcos = sc.nextInt();
-        //creamos las matrices
+        
+        barcos =Math.round(((tamaño*tamaño)*0.20));
+        
         int[][] matriz1 = new int[tamaño][tamaño];
         int[][] matriz2 = new int[tamaño][tamaño];
-        //llenamoos las matrices con asteriscos y que ponga un 0 cuando el usuario ingrese esa coordenada salga un 0 en la matriz
+        int[][] matriz11 = new int[tamaño][tamaño];
+        int[][] matriz21 = new int[tamaño][tamaño];
+        
         for (int i = 0; i < tamaño; i++) {
             for (int j = 0; j < tamaño; j++) {
-                matriz1[i][j] = '*';
+                matriz1[i][j] = 0;
                 matriz2[i][j] = 0;
             }
         }
-        //llenamos la matriz con los barcos que el usuario ingrese
         for (int i = 0; i < barcos; i++) {
+            System.out.println("jugador 1");
             System.out.println("Ingrese la coordenada de la fila del barco " + (i + 1));
             int fila = sc.nextInt();
             System.out.println("Ingrese la coordenada de la columna del barco " + (i + 1));
             int columna = sc.nextInt();
-            System.out.println("Ingrese la orientacion del barco " + (i + 1));
-            String orientacion = sc.next();
-            //pedimos la orientacion del barco con un if para saber si es horizontal o vertical ingresando una letra
-            if (orientacion.equals("h")) {
-                for (int j = 0; j < tamaño; j++) {
-                    matriz1[fila][j] = 'B';
-                }
-            } else {
-                for (int j = 0; j < tamaño; j++) {
-                    matriz1[j][columna] = 'B';
-                }
-            }
+            matriz1[fila][columna]=1;
+           }
             
-            }
-            
-        //llenamos la matriz con los barcos que el usuario ingrese
+       
         for (int i = 0; i < barcos; i++) {
+            System.out.println("jugador 2");
             System.out.println("Ingrese la coordenada de la fila del barco " + (i + 1));
             int fila = sc.nextInt();
             System.out.println("Ingrese la coordenada de la columna del barco " + (i + 1));
             int columna = sc.nextInt();
-            System.out.println("Ingrese la orientacion del barco " + (i + 1));
-            String orientacion = sc.next();
-            //pedimos la orientacion del barco con un if para saber si es horizontal o vertical ingresando una letra
-            if (orientacion.equals("h")) {
-                for (int j = 0; j < tamaño; j++) {
-                    matriz2[fila][j] = 'B';
-                }
-            } else {
-                for (int j = 0; j < tamaño; j++) {
-                    matriz2[j][columna] = 'B';
-                }
+            matriz2[fila][columna]=1;
             }
-            
-            }
-        
-       /* //imprimimos la matriz
-        for (int i = 0; i < tamaño; i++) {
-            for (int j = 0; j < tamaño; j++) {
-                System.out.print(matriz1[i][j] + " ");
-            }
-            System.out.println();
-        }*/
-        //el juego terminara cuando el usuario haya acertado todos los barcos
-        int aciertos = 0;
-        while (aciertos < barcos) {
-            System.out.println("Ingrese la coordenada de la fila");
-            int fila = sc.nextInt();
-            System.out.println("Ingrese la coordenada de la columna");
+      
+         while (true) {
+            System.out.println("---------------------------------------------------");
+            System.out.println("jugador 1");
+             int aciertost1=1;
+            while(aciertost1==1){
+                
+                
+                System.out.println("---------------------------------------------------");
+            System.out.println("Ingrese la coordenada x del area enemiga");
+            int fila =( sc.nextInt());
+            System.out.println("Ingrese la coordenada  y de la fila enemiga ");
             int columna = sc.nextInt();
-            if (matriz1[fila][columna] == 'B') {
-                matriz2[fila][columna] = 'X';
-                aciertos++;
-            } else {
-                matriz2[fila][columna] = 'O';
-            }
+            if (matriz2[fila][columna] == 1) {
+                System.out.println("barco enemigo eliminado");
+                matriz21[fila][columna] =1; aciertos1++;} 
+            if(matriz2[fila][columna]==0) {matriz21[fila][columna] =0; aciertost1=2; }
             //imprimimos la matriz
+            System.out.println("mapeo de el area del jugador 2");
             for (int i = 0; i < tamaño; i++) {
                 for (int j = 0; j < tamaño; j++) {
-                    System.out.print(matriz2[i][j] + " ");
-                }
+                    System.out.print(matriz21[i][j] + " ");}
                 System.out.println();
             }
+            System.out.println("---------------------------------------------------");
+            if(aciertos1==barcos){System.out.println("felicidades jugador 1 "); System.exit(0);}
+        }    
+            
+            
+         System.out.println("---------------------------------------------------");  
+            int  aciertost2=0;
+            while(aciertost2==0){
+                
+              System.out.println("jugador 2");
+              System.out.println("---------------------------------------------------");          
+            System.out.println("Ingrese la coordenada x del area enemiga");
+            int fila = sc.nextInt();
+            System.out.println("Ingrese la coordenada  y de la fila enemiga ");
+            int columna = sc.nextInt();
+            if (matriz1[fila][columna] ==1) {
+                matriz11[fila][columna]=1;
+                System.out.println("barco enemigo eliminado");
+               aciertos2++;}
+            if(matriz1[fila][columna]==0) {matriz11[fila][columna] =0; aciertost2=1;
+            }
+            //imprimimos la matriz
+            System.out.println("mapeo de el area del jugador 1");
+            for (int i = 0; i < tamaño; i++) {
+                for (int j = 0; j < tamaño; j++) {
+                    System.out.print(matriz11[i][j] + " ");}
+                System.out.println();
+            }System.out.println("---------------------------------------------------");
+            if(aciertos2==barcos){System.out.println("felicidades jugador 2 "); System.exit(0);}
         }
-        System.out.println("Felicidades, has ganado");
+        
+        }
+        
 
 
 }
-}
+    }
